@@ -7,7 +7,7 @@ function tbxmake
 config.package = 'wsclient';
 
 % version to make
-config.version = '1.0';
+config.version = '1.1';
 
 % package repository
 config.repository = 'stable';

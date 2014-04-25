@@ -182,6 +182,11 @@ classdef WSClient < handle
         function display(client)
             % Overloaded display method for WSClient
 
+            if length(client)>1
+                display@handle(client);
+                return
+            end
+
             if isequal(inputname(1), 'ans')
                 name = 'client';
             else
@@ -227,6 +232,7 @@ classdef WSClient < handle
             %   S='CLOSING', N=2    when the socket is closing
             %   S='CLOSED', N=3     when the socket is closed
             
+            assert(numel(client)==1, 'WSCLIENT:TooManyInputs:Single client please');
             s = client.Socket.getReadyState();
             if isa(s, 'double')
                 % determine the string representation
@@ -264,6 +270,7 @@ classdef WSClient < handle
         function out = isState(client, desired)
             % Returns true if the socket's state is as desired
             
+            assert(numel(client)==1, 'WSCLIENT:TooManyInputs:Single client please');
             [s, n] = client.getState;
             if isa(desired, 'double')
                 out = (n==desired);
@@ -276,9 +283,11 @@ classdef WSClient < handle
             % WSClient destructor
             %
             % Closes the websocket if it's open.
-            
-            if client.isState(client.SOCKET_OPEN)
-                client.close();
+
+            for i = 1:numel(client)
+                if client(i).isState(client.SOCKET_OPEN)
+                    client(i).close();
+                end
             end
         end
         
@@ -286,6 +295,14 @@ classdef WSClient < handle
             % Connects the client to the websocket server
             %
             % client.connect()
+
+            % deal with multiple clients
+            if numel(client)>1
+                for i = 1:numel(client)
+                    client(i).connect();
+                end
+                return
+            end
 
             if client.isState(client.SOCKET_OPEN)
                 % already connected
@@ -323,6 +340,14 @@ classdef WSClient < handle
             %
             % client.close()
 
+            % deal with multiple clients
+            if numel(client)>1
+                for i = 1:numel(client)
+                    client(i).close();
+                end
+                return
+            end
+
             % notify listeners of the SocketClosing event
             client.notify('SocketClosing', WSEvent(client.Server));
 
@@ -344,6 +369,14 @@ classdef WSClient < handle
             %   client = WSClient(URL, 'Encoder', @(d) mat2str(d))
             %   client.connect()
             %   client.send(rand(1, 5))
+
+            % deal with multiple clients
+            if numel(client)>1
+                for i = 1:numel(client)
+                    client(i).send(data);
+                end
+                return
+            end
 
             % send the encoded message
             if ~isempty(client.Encoder)
@@ -369,6 +402,14 @@ classdef WSClient < handle
             %   client.connect()
             %   client.sendRaw('[1, 2, 3]')
 
+            % deal with multiple clients
+            if numel(client)>1
+                for i = 1:numel(client)
+                    client(i).sendRaw(message);
+                end
+                return
+            end
+
             if ~client.isState(client.SOCKET_OPEN)
                 error('WSCLIENT:SocketError', 'The socket is not open.');
             end
@@ -382,13 +423,15 @@ classdef WSClient < handle
             % Constructs an EventCollector object for this client
             %
             % See "help EventCollector" for more information.
-            
+
+            assert(numel(client)==1, 'WSCLIENT:TooManyInputs:Single client please');
             C = EventCollector(client, 'MessageReceived', 'EventParser', @(e) e.Message);
         end
         
         function s = char(client)
             % String representation of WSClient objects
             
+            assert(numel(client)==1, 'WSCLIENT:TooManyInputs:Single client please');
             s = sprintf('WSClient: %s [%s]', client.Server, lower(client.getState()));
         end
     end
