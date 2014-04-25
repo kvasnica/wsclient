@@ -352,6 +352,7 @@ classdef WSClient < handle
             client.notify('SocketClosing', WSEvent(client.Server));
 
             client.Socket.close();
+            pause(0.01);
             
             % notify listeners of the SocketClosed event
             client.notify('SocketClosed', WSEvent(client.Server));
