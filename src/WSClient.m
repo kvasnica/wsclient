@@ -329,7 +329,14 @@ classdef WSClient < handle
             % Set callback for incoming message
             % NOTE: the socket must be connected before setting the
             %       callback!
-            set(client.Socket, 'MessageReceivedCallback', @(h,e) client.message_callback(h,e));
+            try
+                set(client.Socket, 'MessageReceivedCallback', @(h,e) client.message_callback(h,e));
+            catch
+                % Note that in R2014a and newer we need to wrap the socket as a
+                % handle object: http://undocumentedmatlab.com/blog/matlab-callbacks-for-java-events-in-r2014a
+                sock = handle(client.Socket, 'CallbackProperties');
+                set(sock, 'MessageReceivedCallback', @(h,e) client.message_callback(h,e));
+            end
 
             % notify listeners of the SocketOpened event
             client.notify('SocketOpened', WSEvent(client.Server));
