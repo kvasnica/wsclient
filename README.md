@@ -124,9 +124,9 @@ client.close()
 
 ## Advanced demos
 
-* [String echo example using events](https://bitbucket.org/kvasnica/wsclient/src/tip/src/ws_demo_echo.m)
-* [Echo with JSON decoder/encoder](https://bitbucket.org/kvasnica/wsclient/src/tip/src/ws_demo_json.m)
-* [Simple websocket-based calculator](https://bitbucket.org/kvasnica/wsclient/src/tip/src/ws_demo_multiply.m)
-* [How to subscribe to events](https://bitbucket.org/kvasnica/wsclient/src/tip/src/ws_demo_status.m)
-* [Implementation of a custom protocol](https://bitbucket.org/kvasnica/wsclient/src/tip/src/ws_demo_wrc.m)
-* [In-the-background collection of events](https://bitbucket.org/kvasnica/wsclient/src/tip/src/ws_demo_collector.m)
+* [String echo example using events](https://github.com/kvasnica/wsclient/blob/master/src/ws_demo_echo.m)
+* [Echo with JSON decoder/encoder](https://github.com/kvasnica/wsclient/blob/master/src/ws_demo_json.m)
+* [Simple websocket-based calculator](https://github.com/kvasnica/wsclient/blob/master/src/ws_demo_multiply.m)
+* [How to subscribe to events](https://github.com/kvasnica/wsclient/blob/master/src/ws_demo_status.m)
+* [Implementation of a custom protocol](https://github.com/kvasnica/wsclient/blob/master/src/ws_demo_wrc.m)
+* [In-the-background collection of events](https://github.com/kvasnica/wsclient/blob/master/src/ws_demo_collector.m)
