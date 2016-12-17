@@ -1,7 +1,7 @@
 % This demo shows how to observe the socket's internal state transitions
 % (connecting, opened, closed)
 
-client = WSClient('ws://kirp.chtf.stuba.sk:8025/test/echo');
+client = WSClient('ws://echo.websocket.org/');
 
 opened_cb = @(~, e) fprintf('Socket was opened: %s\n', e.Message);
 closed_cb = @(~, e) fprintf('Socket was closed: %s\n', e.Message);
@@ -19,4 +19,5 @@ client.addlistener('MessageSent', sent_cb);
 
 client.connect();
 client.send('Hello');
+pause(1);
 client.close();
