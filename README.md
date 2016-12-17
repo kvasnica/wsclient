@@ -106,7 +106,7 @@ client.addlistener('MessageReceived', @(s,e) disp(e.Message))
 
 ```
 % create the websocket client
-client = WSClient('ws://kirp.chtf.stuba.sk:8025/test/echo')
+client = WSClient('ws://echo.websocket.org/')
 
 % connect the client
 client.connect()
