@@ -3,7 +3,7 @@
 % 2) receiver which receives the number sent by the sender, multiplies it
 %    by a factor of two and sends it back to the sender
 
-ws = 'ws://kirp.chtf.stuba.sk:8025/t/demo/multiply';
+ws = 'ws://swarm3172.cloudout.co:8025/t/demo/multiply';
 
 % the sender transmits/receives numeric messages
 sender = WSClient(ws, 'Encoder', @(x) num2str(x), ...

@@ -7,7 +7,7 @@
 % this demo requires the "eventcollector" package
 tbxmanager require eventcollector
 
-ws = 'ws://kirp.chtf.stuba.sk:8025/t/demo/collector';
+ws = 'ws://swarm3172.cloudout.co:8025/t/demo/collector';
 
 % create a sender which emits numeric inputs
 numeric_sender = WSClient(ws, 'Encoder', @(x) num2str(x));
