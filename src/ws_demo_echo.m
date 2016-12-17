@@ -4,7 +4,7 @@
 % back to the sender.
 
 % create the websocket client
-client = WSClient('ws://kirp.chtf.stuba.sk:8025/test/echo');
+client = WSClient('ws://echo.websocket.org/');
 
 % set the callback function which gets triggered when a new message arrives
 callback = @(~, event) fprintf('Server response: %s\n', event.Message);
@@ -23,5 +23,5 @@ client.send('Hey');
 % you should see two server responses being printed
 
 % close the client
-pause(0.1)
+pause(1)
 client.close();
