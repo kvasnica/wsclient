@@ -8,13 +8,15 @@
 % decode the data by first translating a JSON string to a Matlab structure,
 % followed by stripping away the timestamp.
 
+error('This demo requires infrastructure that is not working at this time.');
+
 % ask the user for the topic ID
-wrc_link = 'http://kirp.chtf.stuba.sk:8025/html/sliders.html';
+wrc_link = 'http://swsb.uiam.sk/html/sliders.html';
 fprintf('Visit %s and enter the topic ID below\n', wrc_link);
 topic = input('Topic ID: ', 's');
 
 % full websocket URL to connect to
-socket_url = ['ws://kirp.chtf.stuba.sk:8025/t/' topic];
+socket_url = ['ws://swsb.uiam.sk/t/' topic];
 
 % websocket client with custom decoder/encoder
 %
