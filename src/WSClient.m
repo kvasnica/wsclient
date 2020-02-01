@@ -290,7 +290,12 @@ classdef WSClient < handle
                 end
             end
         end
-        
+
+        function reconnect(client)
+            fprintf('try to reconnect');
+            client.connect();
+        end
+
         function client = connect(client)
             % Connects the client to the websocket server
             %
@@ -319,10 +324,8 @@ classdef WSClient < handle
             tries = 0;
             while ~client.isState(client.SOCKET_OPEN)
                 tries = tries + 1;
-                pause(0.1*tries);
-                if tries>5
-                    error('WSCLIENT:SocketError', 'Couldn''t establish connection to %s.', client.Server);
-                end
+                pause(0.5);
+                client.connect();
             end
             % fprintf('Connection established: %s\n', client.Server);
 
@@ -377,6 +380,11 @@ classdef WSClient < handle
             %   client = WSClient(URL, 'Encoder', @(d) mat2str(d))
             %   client.connect()
             %   client.send(rand(1, 5))
+
+            % reconnect websocket in case of disconnect
+            while ~client.isState(client.SOCKET_OPEN)
+            client.reconnect();
+            end
 
             % deal with multiple clients
             if numel(client)>1
